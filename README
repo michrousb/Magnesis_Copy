@@ -3,8 +3,7 @@
 ![PlatformIO](https://img.shields.io/badge/PlatformIO-F58220?style=for-the-badge&logo=platformio&logoColor=white)
 ## Arena
 
-![alt text](image.png)
-
+![alt text](assets/arena.png)
 ## 📌 Deskripsi Challenge
 
 Jadi singkatnya kalian bakal buat **PATHFINDING** pergerakan robot *line follower* pada arena menggunakan sensor warna yang nantinya di-mapping pake **bitmask 1/0** (bisa dilihat di referensi pertama).
