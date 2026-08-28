@@ -1,11 +1,15 @@
 ### *Teknis Tugas Besar MAGNESIS 2026*
 # 🤖 TEKNIS TUGAS BESAR MAGNESIS 2026
 
+
+
 ![PlatformIO](https://img.shields.io/badge/PlatformIO-F58220?style=for-the-badge&logo=platformio&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 ![C](https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=c&logoColor=white)
 
 ---
+
+>Version : 1.0
 
 ## 💡 Kenapa Harus Pakai PlatformIO (PIO)?
 
