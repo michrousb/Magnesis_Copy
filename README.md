@@ -39,7 +39,7 @@ Biar tim Programming dan Elektro tidak pusing saat kolaborasi:
 
 3. **Membuat Proyek Baru**
    * Klik ikon semut **PlatformIO** di bilah sisi kiri.
-   * Pilih **Open** -> **PIO Home** -> **+ New Project**.
+   * Pilih **Open** -> **PIO Home** -> **Pick a folder** -> **Pilih folder yang didalamnya terdapat repo ini**
    * Beri nama proyek, pilih jenis board yang dipakai (misal: *Arduino Uno*), dan pilih framework *Arduino*.
    * Klik **Finish**. Tulis kode di dalam file `src/main.cpp`.
 
