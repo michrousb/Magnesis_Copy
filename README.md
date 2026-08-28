@@ -39,9 +39,26 @@ Biar tim Programming dan Elektro tidak pusing saat kolaborasi:
 
 3. **Membuat Proyek Baru**
    * Klik ikon semut **PlatformIO** di bilah sisi kiri.
-   * Pilih **Open** -> **PIO Home** -> **Pick a folder** -> **Pilih folder yang didalamnya terdapat repo ini**
-   * Beri nama proyek, pilih jenis board yang dipakai (misal: *Arduino Uno*), dan pilih framework *Arduino*.
-   * Klik **Finish**. Tulis kode di dalam file `src/main.cpp`.
+  
+      ![alt text](assets/icon1.png)
+   * Pilih **Open** -> **PIO Home** -> **Pick a folder** -> **Create New Project** 
+      ![alt text](assets/icon2.png)
+
+      ![alt text](assets/icon3.png)
+
+
+  
+   * Beri Nama Proyek, pilih jenis board yang dipakai (misal: *Arduino Uno*), dan pilih framework *Arduino*.
+  
+     ![alt text](assets/icon4.png)
+
+  
+   * Klik **Finish**.
+   * Cari Folder project PIO yang barusan dibuat (Biasanya ada di folder Documents)
+
+      ![alt text](assets/icon5.png)
+   * Select All dan move ke folder reponya (Magnesis_2026_NO Kelompok yang udah kalian clone)
+    * **SETUP RESMI SELESAI**
 
 4. **Kompilasi & Upload Kode**
    * Cek tombol aksi di status bar pojok kiri bawah:
@@ -49,6 +66,7 @@ Biar tim Programming dan Elektro tidak pusing saat kolaborasi:
      * Tanda panah kanan (➡): **Upload** (masukkan kode ke robot).
      * Ikon colokan listrik: **Serial Monitor** (melihat data sensor).
 
+5. **Untuk Docs dan refrensi bisa diakses di :** https://docs.platformio.org/en/latest/integration/ide/pioide.html
 ---
 
 ## 📋 Teknis
