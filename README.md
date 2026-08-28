@@ -89,7 +89,7 @@ Jadi singkatnya kalian bakal buat **PATHFINDING** pergerakan robot line follower
 
 * **Berikut Contoh DFS (Deep Search First) dalam Maze :**.
 
-![alt text](assets/dfs_maze_simulation.gif)
+![alt text](assets/robot_blind_dfs_simulation.gif)
 
 #### Ketentuan Framework & Toolchain:
 * **🚫 Dilarang:** Menggunakan framework ROS / ROS 2 (Desktop/Full Stack) baik ROS maupun Microros, serta ekosistem visualisasi dan simulasinya (RViz dan Gazebo).
