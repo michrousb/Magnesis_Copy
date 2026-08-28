@@ -1,4 +1,4 @@
-### *Teknis Tugas Besar MAGNESIS 2026*
+
 # 🤖 TEKNIS TUGAS BESAR MAGNESIS 2026
 
 
