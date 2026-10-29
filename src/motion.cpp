@@ -1,0 +1,107 @@
+#include <Arduino.h>
+#include "motion.hpp"
+#include "motor.h"
+#include "encoder.h"
+#include "config.h"
+
+static long getLeftTicks(){
+    long frontLeft = abs(encoderGetCount(ENCODER_FRONT_LEFT));
+    long rearLeft = abs(encoderGetCount(ENCODER_REAR_LEFT));
+    return(frontLeft + rearLeft)/2;
+}
+
+static long getRightTicks(){
+    long frontRight = abs(encoderGetCount(ENCODER_FRONT_RIGHT));
+    long rearRight = abs(encoderGetCount(ENCODER_REAR_RIGHT));
+    return(frontRight + rearRight)/2;
+}
+
+void moveForwardTicks(int speed, long targetTicks){
+    speed = abs(speed);
+    encoderResetAll();
+    unsigned long startTime = millis(); 
+    forward(speed);
+    while(true){
+        long leftTicks = getLeftTicks();
+        long rightTicks = getRightTicks();
+        bool leftDone = leftTicks >= targetTicks;
+        bool rightDone = rightTicks >= targetTicks;
+        int rightSpeed = rightDone ? 0 : speed;
+        int leftSpeed = leftDone ? 0 : speed;
+        drive(leftSpeed, rightSpeed);
+        if(leftDone && rightDone){
+            break;
+        }
+        if(millis() - startTime >= MOTION_TIMEOUT_MS){
+            Serial.println("Motion timeout!");
+            break;
+        }
+        delay(1);
+    }
+    stopAllMotors();
+}
+
+static void pivotTicks(bool turnLeftDirection, long targetTicks){
+    encoderResetAll();
+    unsigned long startTime = millis();
+    while(true){
+        long leftTicks = getLeftTicks();
+        long rightTicks = getRightTicks();
+        bool leftDone = leftTicks >= targetTicks;
+        bool rightDone = rightTicks >= targetTicks;
+        int leftSpeed;
+        int rightSpeed;
+        if(turnLeftDirection){ //klo false berarti kanan
+            leftSpeed = leftDone ? 0 : -MOTION_TURN_SPEED;
+            rightSpeed = rightDone ? 0 : MOTION_TURN_SPEED;
+        }
+        else{
+            leftSpeed = leftDone ? 0 : MOTION_TURN_SPEED;
+            rightSpeed = rightDone ? 0 : -MOTION_TURN_SPEED;
+            
+        }
+        drive(leftSpeed, rightSpeed);
+        
+        if(leftDone && rightDone){
+            break;
+        }
+        if(millis() - startTime >= MOTION_TIMEOUT_MS){
+            Serial.println("Motion timeout!");
+            break;
+        }
+        delay(1);
+    }
+    stopAllMotors();// target tick udh terpenuhi
+
+}
+
+void turnLeft90(){
+    pivotTicks(true, TURN_90_TICKS);
+}
+
+void turnRight90(){
+    pivotTicks(false, TURN_90_TICKS);
+}
+
+void turnAround180(){
+    pivotTicks(false, TURN_180_TICKS); 
+}
+
+void motionResetProgress() {
+    encoderResetAll();
+}
+
+long motionGetLeftTicks() {
+    return getLeftTicks();
+}
+
+long motionGetRightTicks() {
+    return getRightTicks();
+}
+
+bool motionTargetReached(long targetTicks) {
+    long leftTicks = getLeftTicks();
+    long rightTicks = getRightTicks();
+
+    return (leftTicks >= targetTicks && rightTicks >= targetTicks);
+}
