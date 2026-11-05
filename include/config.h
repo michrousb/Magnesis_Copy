@@ -99,3 +99,15 @@
 #define TURN_180_TICKS 360 //tentatif
 #define INTERSECTION_SCAN_TICKS 60 //tentatif, case klo maju kecil di junction
 #define MOTION_TIMEOUT_MS 2000 //safety timeout, klo encoder gagal bacca, motor ga muter terus
+
+// CONVEYOR
+constexpr int CONVEYOR_IN1 = 4;
+constexpr int CONVEYOR_IN2 = 5;
+#define CONVEYOR_PWM_CHANNEL 8
+//PWM
+constexpr int CONVEYOR_PWM_FREQ = 20000;
+constexpr int CONVEYOR_PWM_RESOLUTION = 8;
+constexpr int CONVERYOR_PWM_MAX = (1<<CONVEYOR_PWM_RESOLUTION) - 1;
+constexpr int CONVEYOR_DEFAULT_SPEED = 150;
+
+#define FINISH_CHECK_TICKS 50

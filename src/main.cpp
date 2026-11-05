@@ -1,8 +1,11 @@
-/**
-#define CUSTOM_SETTINGS
-#define INCLUDE_GAMEPAD_MODULE
+#include <Arduino.h>
 
-#include <DabbleESP32.h>
+#include "motor.h"
+#include "encoder.h"
+#include "bfd.hpp"
+
+#include "robot_controller.hpp"
+#include "controller_input.hpp"
 
 
 void setup() {
@@ -10,22 +13,19 @@ void setup() {
 
     motorInit();
     encoderInit();
+    bfdInit();
 
-    Dabble.begin("RobotMagnesis");
-}
-if (GamePad.isUpPressed()) {
-    forward(150);
-}
+    robotControllerInit();
+    controllerInputInit();
 
-if (GamePad.isDownPressed()) {
-    backward(150);
+    Serial.println("[MAGNESIS] Ready!");
 }
 
-if (GamePad.isLeftPressed()) {
-    turnLeft(150);
-}
 
-if (GamePad.isRightPressed()) {
-    turnRight(150);
+void loop() {
+    controllerInputUpdate();
+
+    robotControllerUpdate();
+
+    delay(1);
 }
-    */

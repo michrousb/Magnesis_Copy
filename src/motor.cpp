@@ -25,33 +25,43 @@ motors[3] = Rear Right
 // in2 aktif = arah negatif (mundur)
 void motorInit() {
     for (int i = 0; i < 4; i++) {
-        ledcAttach( motors[i].in1, PWM_FREQ, PWM_RESOLUTION); //aktifin fitur PWM ESP32 di pin itu
-        ledcAttach(motors[i].in2,PWM_FREQ,PWM_RESOLUTION);
-        ledcWrite(motors[i].in1, 0); //keluarin PWM bernilai 0 di pin itu
-        ledcWrite(motors[i].in2, 0);
+        int channel1 = i * 2;
+        int channel2 = i * 2 + 1;
+        ledcSetup(channel1, PWM_FREQ, PWM_RESOLUTION);
+        ledcSetup(channel2, PWM_FREQ, PWM_RESOLUTION);
+        ledcAttachPin(motors[i].in1, channel1);
+        ledcAttachPin(motors[i].in2, channel2);
+        ledcWrite(channel1, 0);
+        ledcWrite(channel2, 0);
     }
 }
 
-void motorSet(MotorID motor, int speed){
+
+void motorSet(MotorID motor, int speed) {
     speed = constrain(speed, -PWM_MAX, PWM_MAX);
-    uint8_t in1 = motors[motor].in1;
-    uint8_t in2 = motors[motor].in2;
-    if(motors[motor].inverted){
+
+    const int index = static_cast<int>(motor);
+    const int channel1 = index * 2;
+    const int channel2 = index * 2 + 1;
+
+    if (motors[index].inverted) {
         speed = -speed;
     }
-    if(speed > 0){
-        ledcWrite(in1, speed);
-        ledcWrite(in2, 0);
+
+    if (speed > 0) {
+        ledcWrite(channel1, speed);
+        ledcWrite(channel2, 0);
     }
     else if (speed < 0) {
-        ledcWrite(in1, 0);
-        ledcWrite(in2, -speed);
+        ledcWrite(channel1, 0);
+        ledcWrite(channel2, -speed);
     }
     else {
-        ledcWrite(in1, 0);
-        ledcWrite(in2, 0);
-     }
+        ledcWrite(channel1, 0);
+        ledcWrite(channel2, 0);
+    }
 }
+
 
 void drive(int leftSpeed, int rightSpeed) {
     motorSet(FRONT_LEFT, leftSpeed);
@@ -105,10 +115,12 @@ void stopAllMotors() {
     }
 }
 
-void motorBrake(MotorID motor) {
-    uint8_t in1 = motors[motor].in1;
-    uint8_t in2 = motors[motor].in2;
 
-    ledcWrite(in1, PWM_MAX);
-    ledcWrite(in2, PWM_MAX);
+void motorBrake(MotorID motor) {
+    const int index = static_cast<int>(motor);
+    const int channel1 = index * 2;
+    const int channel2 = index * 2 + 1;
+
+    ledcWrite(channel1, PWM_MAX);
+    ledcWrite(channel2, PWM_MAX);
 }

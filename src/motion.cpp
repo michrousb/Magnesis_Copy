@@ -16,7 +16,11 @@ static long getRightTicks(){
     return(frontRight + rearRight)/2;
 }
 
-void moveForwardTicks(int speed, long targetTicks){
+bool moveForwardTicks(int speed, long targetTicks){
+    if (targetTicks <= 0 || speed == 0) {
+        stopAllMotors();
+        return false;
+    }
     speed = abs(speed);
     encoderResetAll();
     unsigned long startTime = millis(); 
@@ -30,18 +34,21 @@ void moveForwardTicks(int speed, long targetTicks){
         int leftSpeed = leftDone ? 0 : speed;
         drive(leftSpeed, rightSpeed);
         if(leftDone && rightDone){
-            break;
+            stopAllMotors();
+            return true;
         }
         if(millis() - startTime >= MOTION_TIMEOUT_MS){
-            Serial.println("Motion timeout!");
-            break;
+            stopAllMotors();
+            return false;
         }
-        delay(1);
     }
-    stopAllMotors();
 }
 
-static void pivotTicks(bool turnLeftDirection, long targetTicks){
+static bool pivotTicks(bool turnLeftDirection, long targetTicks){
+    if (targetTicks <= 0 || MOTION_TURN_SPEED <= 0) {
+        stopAllMotors();
+        return false;
+    }
     encoderResetAll();
     unsigned long startTime = millis();
     while(true){
@@ -63,28 +70,29 @@ static void pivotTicks(bool turnLeftDirection, long targetTicks){
         drive(leftSpeed, rightSpeed);
         
         if(leftDone && rightDone){
-            break;
+            stopAllMotors();
+            return true;
         }
         if(millis() - startTime >= MOTION_TIMEOUT_MS){
+            stopAllMotors();
             Serial.println("Motion timeout!");
-            break;
+            return false;
         }
         delay(1);
     }
-    stopAllMotors();// target tick udh terpenuhi
 
 }
 
-void turnLeft90(){
-    pivotTicks(true, TURN_90_TICKS);
+bool turnLeft90(){
+    return pivotTicks(true, TURN_90_TICKS);
 }
 
-void turnRight90(){
-    pivotTicks(false, TURN_90_TICKS);
+bool  turnRight90(){
+    return pivotTicks(false, TURN_90_TICKS);
 }
 
-void turnAround180(){
-    pivotTicks(false, TURN_180_TICKS); 
+bool turnAround180(){
+    return pivotTicks(false, TURN_180_TICKS); 
 }
 
 void motionResetProgress() {

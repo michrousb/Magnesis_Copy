@@ -17,3 +17,4 @@ BFDReading bfdRead();
 
 void bfdPrint(const BFDReading &reading); //buat debugging
 
+bool bfdAllBlack(const BFDReading &reading);

@@ -52,6 +52,7 @@ void mazeInit(MazeHeading startHeading = MazeHeading::NORTH);
 MazeMove mazeChooseDirection(const JunctionInfo &junction);
 MazeMove mazeHandleDeadEnd();
 void mazeRecordTravelDistance(long distanceTicks);
+void mazeMarkGoalReached();
 
 //status
 bool mazeExplorationFinished();
@@ -60,3 +61,32 @@ int mazeGetNodeCount();
 
 //debug
 const char* mazeMoveToString(MazeMove move);
+
+bool mazeHasSavedMap();
+int mazeGetSavedNodeCount();
+int mazeGetSavedGoalNode();
+int mazeGetSavedNeighbor(int node, MazeHeading direction); // -1 jika belum terhubung
+long mazeGetSavedEdgeDistance(int node, MazeHeading direction); // -1 jika belum diketahui
+uint8_t mazeGetSavedExits(int node);
+
+bool mazeBeginFromStart();
+MazeHeading mazeGetSavedGoalHeading();
+
+int mazeGetSavedPathCount();
+int mazeGetSavedPathNode(int index);
+
+static constexpr int MAZE_MAX_RETURN_STEPS = 64;
+struct MazeReturnStep {
+    int fromNode = -1;
+    int toNode = -1;
+    MazeHeading direction = MazeHeading::NORTH; // arah absolut dari from -> to
+    MazeMove turn = MazeMove::NONE;              // gerak relatif dari heading sebelumnya
+    long distanceTicks = -1;
+};
+struct MazeReturnRoute {
+    int stepCount = 0;
+    long totalTicks = 0;
+    MazeReturnStep steps[MAZE_MAX_RETURN_STEPS];
+};
+
+bool mazeBuildReturnRoute(MazeReturnRoute &route);

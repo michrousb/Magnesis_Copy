@@ -25,11 +25,7 @@ static LastSeenSide lastSeenSide = LastSeenSide::UNKNOWN;
 static bool recovering = false;
 static unsigned long recoveryStartMs = 0; //mulai recovery jam brp
 
-
-// ======================================================
 // HITUNG POSISI GARIS
-// ======================================================
-
 static bool calculateLinePosition(const BFDReading &reading,float &position) {
     float weightedSum = 0.0f;
     int activeCount = 0;
@@ -67,11 +63,7 @@ static bool calculateLinePosition(const BFDReading &reading,float &position) {
     return true;
 }
 
-
-// ======================================================
 // BASE SPEED
-// ======================================================
-
 static int calculateBaseSpeed(const BFDReading &reading,float error) {
 
     bool outerActive = reading.leftOuter || reading.rightOuter;

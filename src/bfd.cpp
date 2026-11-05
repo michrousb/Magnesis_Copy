@@ -63,3 +63,11 @@ void bfdPrint(const BFDReading &reading) {
     Serial.print(" | active=");
     Serial.println(reading.activeCount);
 }
+
+bool bfdAllBlack(const BFDReading &reading) {
+    return reading.front &&
+           reading.leftOuter &&
+           reading.leftInner &&
+           reading.rightInner &&
+           reading.rightOuter;
+}

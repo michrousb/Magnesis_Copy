@@ -6,9 +6,7 @@
 sensor:  F   LO   LI   RI   RO
 */
 
-// ======================================================
 // BIT POSITION
-// ======================================================
 
 static constexpr uint8_t BIT_FRONT =
     (1u << 4); //10000 (unsigned)
@@ -26,25 +24,17 @@ static constexpr uint8_t BIT_RIGHT_OUTER =
     (1u << 0);
 
 
-// ======================================================
 // BIT MASK (-01111)
-// ======================================================
-
 static constexpr uint8_t MASK_REAR = BIT_LEFT_OUTER | BIT_LEFT_INNER | BIT_RIGHT_INNER | BIT_RIGHT_OUTER;
 
-// ======================================================
 // SCAN MEMORY
-// ======================================================
 
 static bool sawLeft = false;
 static bool sawRight = false;
 static bool hasReading = false;
 static uint8_t lastBits = 0; //kondisi sensor paling akhir
 
-// ======================================================
 // UBAH BFDReading MENJADI BITMASK
-// ======================================================
-
 static uint8_t sensorBits(const BFDReading &reading) {
 
     uint8_t bits = 0;
@@ -68,10 +58,6 @@ static uint8_t sensorBits(const BFDReading &reading) {
 }
 
 
-// ======================================================
-// HITUNG JUMLAH BIT 1
-// ======================================================
-
 static int countSetBits(uint8_t bits) {
     int count = 0;
     while (bits != 0) {
@@ -81,10 +67,6 @@ static int countSetBits(uint8_t bits) {
     return count;
 }
 
-
-// ======================================================
-// KLASIFIKASI JUNCTION
-// ======================================================
 
 static JunctionType classifyJunction(bool left,bool straight,bool right) {
 
@@ -134,11 +116,7 @@ static JunctionType classifyJunction(bool left,bool straight,bool right) {
     return JunctionType::UNKNOWN;
 }
 
-
-// ======================================================
 // CEK CANDIDATE INTERSECTION
-// ======================================================
-
 bool intersectionCandidate(const BFDReading &reading) {
 
     uint8_t bits =sensorBits(reading);
